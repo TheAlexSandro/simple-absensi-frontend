@@ -1,0 +1,197 @@
+.main {
+    padding-top: 7%;
+    min-height: 100vh;
+    background: #efeadc;
+}
+
+.main .portal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    margin: 0 auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 40px 30px;
+    max-width: 100%;
+    width: 30%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.main .portal .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    margin-bottom: 25px;
+}
+
+.main .portal .description span {
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.main .portal .description p {
+    font-size: 13px;
+    color: gray;
+}
+
+.main .portal img {
+    margin-bottom: 20px;
+    width: 10vw;
+    height: auto;
+}
+
+.main .portal form {
+    max-width: 100%;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.main .portal form input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid gray;
+    text-align: center;
+}
+
+.main .portal form button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.main .portal form button:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.main .portal .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.main .portal .loading .icon {
+    display: inline-block;
+    width: 40px;
+    height: auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.result .item {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.main .result .icon {
+    display: inline-block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 50px;
+    height: auto;
+    color: green;
+}
+
+.main .warning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 40px 30px;
+    max-width: 100%;
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: red;
+}
+
+.main .warning .icon {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .main .portal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        width: 90%;
+    }
+
+    .main .portal .description img {
+        width: 30vw;
+        height: auto;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .main .portal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 100%;
+        width: 50%;
+    }
+
+    .main .portal .description img {
+        width: 15vw;
+        height: auto;
+    }
+
+    .main .warning {
+        width: 50%;
+    }
+}

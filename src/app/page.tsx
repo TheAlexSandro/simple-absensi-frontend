@@ -1,95 +1,127 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import React, { useState, useEffect } from "react";
+import "./page.css";
+import AlertLineIcon from "remixicon-react/AlertLineIcon";
+import Loader4Line from "remixicon-react/Loader4LineIcon";
+import { api } from "@/lib/api";
+
+interface Absensi {
+    nama: string,
+    jabatan: string,
+    absen: {
+        id: string,
+        waktu: string,
+        status: string
+    }[]
+}
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    const [input, setInput] = useState("");
+    const [isMobile, setIsMobile] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [changeLayout, setChangeLayout] = useState(false);
+    const [datas, setDatas] = useState<Absensi>({ nama: "", jabatan: "", absen: [] });
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth <= 768 || (('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.devicePixelRatio > 1)
+            setIsMobile(mobile);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        absensi(input);
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.replace(/\D+/g, "");
+        setInput(value);
+        if (value.length == 8) return absensi(value);
+    };
+
+    const absensi = (code: string) => {
+        setChangeLayout(true);
+        setLoading(true);
+        api("/generateAuthToken", null, null, (error, r_t) => {
+            api("/absen", r_t['result'], { id: code }, (err, result) => {
+                setDatas(result['result']);
+                setLoading(false);
+            })
+        })
+    };
+
+    const lastAbsen = datas.absen[datas.absen.length - 1] || {};
+    return (
+        <section className="main">
+            {!isMobile && (
+                <section className="portal">
+                    {!changeLayout && <>
+                        <div className="description">
+                            <img src="/images/school.png" alt="Gambar Sekolah" />
+                            <span>Portal Absensi</span>
+                            <p>Selamat datang di portal absensi SMKN 1 Blitar, pindai barcode pada kartu ID Anda kepada barcode scanner untuk presensi.</p>
+                        </div>
+                        <form method="POST" onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={handleChange}
+                                autoFocus
+                                className="border p-2"
+                                placeholder="Pindai kartu Anda..."
+                            />
+                            <button type="submit">absen</button>
+                        </form>
+                    </>}
+                    {changeLayout && (<>
+                        {loading && (
+                            <div className="loading">
+                                <Loader4Line className="icon" />
+                            </div>
+                        )}
+                        {!loading && (
+                            <div className="result">
+                                <div className="description">
+                                    <img src="/images/school.png" alt="Gambar Sekolah" />
+                                    <span>Portal Absensi</span>
+                                    <p>Anda berhasil melakukan absen di absensi SMKN 1 Blitar.</p>
+                                </div>
+                                <div className="item">
+                                    <span className="sub">Nama</span>
+                                    <span>{ datas.nama || "" }</span>
+                                </div>
+                                <div className="item">
+                                    <span className="sub">Jabatan</span>
+                                    <span>{ datas.jabatan || ""}</span>
+                                </div>
+                                <div className="item">
+                                    <span className="sub">Waktu</span>
+                                    <span>{ lastAbsen.waktu }</span>
+                                </div>
+                                <div className="item">
+                                    <span className="sub">Status</span>
+                                    <span>{ lastAbsen.status }</span>
+                                </div>
+                            </div>
+
+                        )}
+                    </>)}
+                </section>
+            )}
+
+            {isMobile && (
+                <section className="warning">
+                    <AlertLineIcon className="icon" />
+                    <span>Unauthorized!</span>
+                    <p>Perangkat tidak diizinkan untuk melakukan pemindaian.</p>
+                </section>
+            )}
+        </section>
+    )
 }
