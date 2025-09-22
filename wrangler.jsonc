@@ -4,8 +4,8 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "id-card-scanner",
-	"main": ".open-next/worker.js",
+	"name": "absensi",
+	"main": ".next/worker.js",
 	"compatibility_date": "2025-03-01",
 	"compatibility_flags": [
 		"nodejs_compat",
@@ -13,7 +13,7 @@
 	],
 	"assets": {
 		"binding": "ASSETS",
-		"directory": ".open-next/assets"
+		"directory": ".next/assets"
 	},
 	"observability": {
 		"enabled": true
