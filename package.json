@@ -25,5 +25,8 @@
 		"eslint-config-next": "15.4.6",
 		"typescript": "^5",
 		"wrangler": "^4.38.0"
+	},
+	"engines": {
+		"node": "20.x"
 	}
 }
