@@ -51,7 +51,7 @@ export default function Home() {
         api("/generateAuthToken", null, null, (error, r_t) => {
             if (error) return alert("Ada error!")
             api("/absen", r_t['result'], { id: code }, (err, result) => {
-                if (err) { alert("Pengguna tidak ada."); setChangeLayout(false); setLoading(false); return };
+                if (err || !result['ok']) { alert("Pengguna tidak ada."); setChangeLayout(false); setLoading(false); return };
                 setDatas(result['result']);
                 setLoading(false);
             })
