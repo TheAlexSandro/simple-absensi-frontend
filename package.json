@@ -15,18 +15,12 @@
 		"remixicon-react": "^1.0.0"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250922.0",
 		"@eslint/eslintrc": "^3",
-		"@opennextjs/cloudflare": "^1.8.3",
 		"@types/node": "^20.19.17",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "15.4.6",
-		"typescript": "^5",
-		"wrangler": "^4.38.0"
-	},
-	"engines": {
-		"node": "20.x"
+		"typescript": "^5"
 	}
 }
