@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 type Callback<T> = (error: string | null, result: T | null) => void;
 
