@@ -16,10 +16,10 @@ interface Absensi {
 }
 
 export default function Home() {
-    const [input, setInput] = useState("");
-    const [isMobile, setIsMobile] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const [changeLayout, setChangeLayout] = useState(false);
+    const [input, setInput] = useState<string>("");
+    const [isMobile, setIsMobile] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [changeLayout, setChangeLayout] = useState<boolean>(false);
     const [datas, setDatas] = useState<Absensi>({ nama: "", jabatan: "", absen: [] });
 
     useEffect(() => {
@@ -42,14 +42,14 @@ export default function Home() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.replace(/\D+/g, "");
         setInput(value);
-        if (value.length == 8) return absensi(value);
+        if (value.length == 9) return absensi(value);
     };
 
     const absensi = (code: string) => {
         setChangeLayout(true);
         setLoading(true);
         api("/generateAuthToken", null, null, (error, r_t) => {
-            if (error) return alert("Ada error!")
+            if (error) { alert("Ada error!"); setChangeLayout(false); setLoading(false); return }
             api("/absen", r_t['result'], { id: code }, (err, result) => {
                 if (err || !result['ok']) { alert("Pengguna tidak ada."); setChangeLayout(false); setLoading(false); return };
                 setDatas(result['result']);

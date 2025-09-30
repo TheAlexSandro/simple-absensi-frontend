@@ -1,5 +1,4 @@
 import "./css/page.css"
-import UserLineIcon from "remixicon-react/UserLineIcon"
 
 export default function Navbar() {
     return (
