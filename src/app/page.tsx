@@ -86,7 +86,6 @@ export default function Home() {
                                 className="border p-2"
                                 placeholder="Pindai kartu Anda..."
                             />
-                            <button type="submit">absen</button>
                         </form>
                     </>}
                     {changeLayout && (<>
