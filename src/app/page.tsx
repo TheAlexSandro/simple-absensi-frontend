@@ -21,6 +21,8 @@ export default function Home() {
     const [loading, setLoading] = useState<boolean>(false);
     const [changeLayout, setChangeLayout] = useState<boolean>(false);
     const [datas, setDatas] = useState<Absensi>({ nama: "", jabatan: "", absen: [] });
+    const [isError, setIsError] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     useEffect(() => {
         const checkMobile = () => {
@@ -45,13 +47,19 @@ export default function Home() {
         if (value.length == 9) return absensi(value);
     };
 
+    const reload = () => {
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+
     const absensi = (code: string) => {
         setChangeLayout(true);
         setLoading(true);
         api("/generateAuthToken", null, null, (error, r_t) => {
-            if (error) { alert("Ada error!"); setChangeLayout(false); setLoading(false); return }
+            if (error) { setIsError(true); setErrorMessage("Something went wrong."); setChangeLayout(true); setLoading(false); reload(); return }
             api("/absen", r_t['result'], { id: code }, (err, result) => {
-                if (err || !result['ok']) { alert("Pengguna tidak ada."); setChangeLayout(false); setLoading(false); setInput(""); return };
+                if (err || !result['ok']) {setIsError(true); setErrorMessage("Pengguna tidak ada."); setChangeLayout(true); setLoading(false); setInput(""); reload(); return }
                 setDatas(result['result']);
                 setLoading(false);
             })
@@ -87,7 +95,7 @@ export default function Home() {
                                 <Loader4Line className="icon" />
                             </div>
                         )}
-                        {!loading && (
+                        {!loading && !isError && (
                             <div className="result">
                                 <div className="description">
                                     <img src="/images/school.png" alt="Gambar Sekolah" />
@@ -96,22 +104,35 @@ export default function Home() {
                                 </div>
                                 <div className="item">
                                     <span className="sub">Nama</span>
-                                    <span>{ datas.nama || "" }</span>
+                                    <span>{datas.nama || ""}</span>
                                 </div>
                                 <div className="item">
                                     <span className="sub">Jabatan</span>
-                                    <span>{ datas.jabatan || ""}</span>
+                                    <span>{datas.jabatan || ""}</span>
                                 </div>
                                 <div className="item">
                                     <span className="sub">Waktu</span>
-                                    <span>{ lastAbsen.waktu }</span>
+                                    <span>{lastAbsen.waktu}</span>
                                 </div>
                                 <div className="item">
                                     <span className="sub">Status</span>
-                                    <span>{ lastAbsen.status }</span>
+                                    <span>{lastAbsen.status}</span>
                                 </div>
                             </div>
-
+                        )}
+                        {isError && (
+                            <div className="result">
+                                <div className="description">
+                                    <img src="/images/school.png" alt="Gambar Sekolah" />
+                                    <span>Portal Absensi</span>
+                                    <p>Anda berhasil melakukan absen di absensi SMKN 1 Blitar.</p>
+                                </div>
+                                <div className="error">
+                                    <AlertLineIcon className="icon"/>
+                                    <span>{errorMessage}</span>
+                                    <small>Page will be reload in 3 seconds.</small>
+                                </div>
+                            </div>
                         )}
                     </>)}
                 </section>
