@@ -10,6 +10,7 @@ import ArrowLeftLine from "remixicon-react/ArrowLeftLineIcon";
 import Loader4Line from "remixicon-react/Loader4LineIcon";
 import Barcode from "@/app/components/barcode/Barcode";
 import PrinterLine from "remixicon-react/PrinterLineIcon";
+import LogoutBoxLine from "remixicon-react/LogoutBoxLineIcon";
 import Swal from "sweetalert2";
 
 type User = {
@@ -181,6 +182,27 @@ export default function Dashboard() {
             })
     }
 
+    const logout = () => {
+        Swal.fire({
+            icon: "warning",
+            title: "Konfirmasi",
+            text: `Apa Anda yakin ingin keluar dari admin?`,
+            showCancelButton: true,
+            showConfirmButton: true
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    api("/generateAuthToken", null, null, (error, token) => {
+                        if (error) { toast.error("Something went wrong.", { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
+
+                        api("/signOut", token["result"], null, (err, result) => {
+                            window.location.href = "/signin";
+                        })
+                    })
+                }
+            })
+    }
+
     return (
         <>
             {showDashboard && (
@@ -198,6 +220,11 @@ export default function Dashboard() {
                                     <div className="item" onClick={() => { changeLayout("list_user") }}><User className="icon" /> Daftar Pengguna</div>
                                     <div className="item" onClick={() => { changeLayout("add_user") }}><UserAddLine className="icon" /> Tambah Pengguna</div>
                                     <div className="item" onClick={() => { changeLayout("del_user") }}><UserUnfollowLine className="icon" /> Hapus Pengguna</div>
+                                </div>
+
+                                <span className="title">Akun</span>
+                                <div className="container">
+                                    <div className="item" onClick={logout}><LogoutBoxLine className="icon" /> Keluar</div>
                                 </div>
                             </div>
                         </>
