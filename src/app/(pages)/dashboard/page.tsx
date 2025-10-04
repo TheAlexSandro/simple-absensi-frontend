@@ -248,7 +248,7 @@ export default function Dashboard() {
                                                         <th>Nama</th>
                                                         <th>Jabatan</th>
                                                         <th>Barcode</th>
-                                                        <th>Cetak</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -357,7 +357,7 @@ export default function Dashboard() {
                                                         <th>Nama</th>
                                                         <th>Jabatan</th>
                                                         <th>Barcode</th>
-                                                        <th>Cetak</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
