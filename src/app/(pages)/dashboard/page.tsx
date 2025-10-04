@@ -128,8 +128,9 @@ export default function Dashboard() {
             const ops = id ? { nama, jabatan: role, id } : { nama, jabatan: role };
             api("/register", token["result"], ops, (err, result) => {
                 if (err) { toast.error("Something went wrong.", { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
-                if (!result["ok"]) { toast.warning(result["message"], { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
+                if (!result["ok"]) { toast.dismiss(); toast.warning(result["message"], { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
 
+                toast.dismiss();
                 toast.success("Berhasil!", { position: "top-right", autoClose: 5000, closeOnClick: true });
                 setShowBarcode(result["result"]["user_id"]);
                 setLoading(false);
@@ -144,7 +145,7 @@ export default function Dashboard() {
 
             api("/getAllUser", token["result"], null, (err, result) => {
                 if (err) { toast.error("Something went wrong.", { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
-                if (!result["ok"]) { toast.warning(result["message"], { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
+                if (!result["ok"]) { toast.dismiss(); toast.warning(result["message"], { position: "top-right", autoClose: 5000, closeOnClick: true }); setLoading(false); return }
 
                 setUserList(result["result"]);
                 setLoadingUser(false);
