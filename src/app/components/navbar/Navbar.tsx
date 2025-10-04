@@ -1,4 +1,5 @@
 import "./css/page.css"
+import UserLineIcon from "remixicon-react/UserLineIcon"
 
 export default function Navbar() {
     return (
@@ -7,8 +8,9 @@ export default function Navbar() {
                 <div className="bounce-wrap">
                     <img src="/images/school.png" alt="Logo" />
                 </div>
-                <p>Portal Absensi</p>
+                <a href="/"><p>Portal Absensi</p></a>
             </div>
+            <div className="menu"><li><a href="/dashboard"><UserLineIcon className="user" /></a></li></div>
         </section>
     )
 }

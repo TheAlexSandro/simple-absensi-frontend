@@ -9,10 +9,14 @@
 	},
 	"dependencies": {
 		"axios": "^1.12.2",
+		"jsbarcode": "^3.12.1",
+		"jspdf": "^3.0.3",
 		"next": "15.4.6",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"remixicon-react": "^1.0.0"
+		"react-toastify": "^11.0.5",
+		"remixicon-react": "^1.0.0",
+		"sweetalert2": "^11.23.0"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",

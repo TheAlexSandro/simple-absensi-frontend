@@ -6,13 +6,11 @@ import Loader4Line from "remixicon-react/Loader4LineIcon";
 import { api } from "@/lib/api";
 
 interface Absensi {
-    nama: string,
-    jabatan: string,
-    absen: {
-        id: string,
-        waktu: string,
-        status: string
-    }[]
+    id: string;
+    nama: string;
+    jabatan: string;
+    waktu: string;
+    status: string;
 }
 
 export default function Home() {
@@ -20,7 +18,7 @@ export default function Home() {
     const [isMobile, setIsMobile] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
     const [changeLayout, setChangeLayout] = useState<boolean>(false);
-    const [datas, setDatas] = useState<Absensi>({ nama: "", jabatan: "", absen: [] });
+    const [datas, setDatas] = useState<Absensi>({ id: "", nama: "", jabatan: "", waktu: "", status: "" });
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -66,7 +64,6 @@ export default function Home() {
         })
     };
 
-    const lastAbsen = datas.absen[datas.absen.length - 1] || {};
     return (
         <section className="main">
             {!isMobile && (
@@ -111,11 +108,11 @@ export default function Home() {
                                 </div>
                                 <div className="item">
                                     <span className="sub">Waktu</span>
-                                    <span>{lastAbsen.waktu}</span>
+                                    <span>{datas.waktu}</span>
                                 </div>
                                 <div className="item">
                                     <span className="sub">Status</span>
-                                    <span>{lastAbsen.status}</span>
+                                    <span>{datas.status}</span>
                                 </div>
                             </div>
                         )}

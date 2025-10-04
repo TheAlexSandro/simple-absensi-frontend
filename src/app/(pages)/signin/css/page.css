@@ -1,13 +1,10 @@
 .main {
-    min-height: 110vh;
+    padding: 7% 0;
     background: #efeadc;
+    overflow-y: auto;
 }
 
-.main .portal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
+.main .signin {
     margin: 0 auto;
     background: white;
     display: flex;
@@ -15,13 +12,13 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    padding: 40px 30px;
+    padding: 40px 50px;
     max-width: 100%;
     width: 30%;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.main .portal .description {
+.main .signin .description {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,40 +28,44 @@
     margin-bottom: 25px;
 }
 
-.main .portal .description span {
+.main .signin .description span {
     margin-top: 10px;
     font-size: 30px;
     font-weight: 500;
 }
 
-.main .portal .description p {
+.main .signin .description p {
     font-size: 13px;
     color: gray;
 }
 
-.main .portal img {
+.main .signin img {
     margin-bottom: 20px;
     width: 10vw;
     height: auto;
 }
 
-.main .portal form {
-    max-width: 100%;
-    width: 80%;
+.main .signin form {
+    min-width: 100%;
     margin: 0 auto;
     margin-top: 20px;
 }
 
-.main .portal form input {
+.main .signin form label {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.main .signin form input {
     width: 100%;
     padding: 10px 12px;
     border-radius: 5px;
     outline: none;
     border: 1px solid gray;
-    text-align: center;
+    margin-bottom: 15px;
 }
 
-.main .portal form button {
+.main .signin form button {
     margin-top: 20px;
     width: 100%;
     padding: 10px;
@@ -79,12 +80,13 @@
     cursor: pointer;
 }
 
-.main .portal form button:hover {
+.main .signin form button:hover {
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
 }
 
-.main .portal .loading {
+.main .signin .loading {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,9 +94,9 @@
     justify-content: center;
 }
 
-.main .portal .loading .icon {
+.main .signin .loading .icon {
     display: inline-block;
-    width: 40px;
+    width: 30px;
     height: auto;
     animation: spin 1s linear infinite;
 }
@@ -109,82 +111,15 @@
     }
 }
 
-.main .result {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    justify-content: center;
-}
-
-.main .result .item {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-}
-
-.main .result .icon {
-    display: inline-block;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    width: 50px;
-    height: auto;
-    color: green;
-}
-
-.main .warning {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    padding: 40px 30px;
-    max-width: 100%;
-    width: 90%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    color: red;
-}
-
-.main .warning .icon {
-    width: 50px;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.main .result .error {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.main .result .error .icon {
-    color: red;
-    margin: 0;
-    width: 45px;
-    height: auto;
-}
-
-.main .result .error span {
-    font-size: 17px;
-}
-
-.main .result .error small {
-    margin-top: 10px;
-    color: gray;
-}
-
 @media (max-width: 600px) {
-    .main .portal {
+    .main {
+        min-height: 100vh;
+        background: #efeadc;
+        overflow-y: auto;
+    }
+
+    .main .signin {
+        margin-top: 10%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -193,14 +128,20 @@
         width: 90%;
     }
 
-    .main .portal .description img {
+    .main .signin .description img {
         width: 30vw;
         height: auto;
     }
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {
-    .main .portal {
+    .main {
+        min-height: 100vh;
+        background: #efeadc;
+        overflow-y: auto;
+    }
+
+    .main .signin {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -209,7 +150,7 @@
         width: 50%;
     }
 
-    .main .portal .description img {
+    .main .signin .description img {
         width: 15vw;
         height: auto;
     }
